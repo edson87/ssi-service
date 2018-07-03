@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SsiServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SsiServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SsiServiceApplication.class, args);
+    }
 }
