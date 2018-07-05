@@ -1,9 +1,9 @@
 package com.dh.ssiservice.repository;
 
 
-import com.dh.ssiservice.model.Category;
+import com.dh.ssiservice.model.Contract;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ContractRepository extends CrudRepository<Category, Long> {
+public interface ContractRepository extends CrudRepository<Contract, Long> {
 
 }
