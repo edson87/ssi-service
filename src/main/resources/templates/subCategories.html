@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sub Categories List</title>
+</head>
+<body>
+<h1>Sub Category</h1>
+<table>
+    <tr>
+        <th>Code</th>
+        <th>Name</th>
+
+    </tr>
+    <tr th:each="subCategory:${subCategories}">
+        <td th:text="${subCategory.code}"></td>
+        <td th:text="${subCategory.name}"></td>
+    </tr>
+</table>
+</body>
+</html>
