@@ -50,14 +50,14 @@ public class SpringBeanLifeCycleDemo implements InitializingBean, DisposableBean
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        System.out.println("set application context");
+        System.out.println("setApplicationContext");
     }
 
     public void beforeInit() {
-        System.out.println("before init");
+        System.out.println("beforeInit");
     }
 
     public void afterInit() {
-        System.out.println("after init");
+        System.out.println("afterInit");
     }
 }

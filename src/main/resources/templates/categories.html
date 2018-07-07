@@ -8,13 +8,14 @@
 <h1>Categories</h1>
 <table>
     <tr>
-        <th>Code</th>
+        <th>id</th>
         <th>Name</th>
-
+        <th>Code</th>
     </tr>
     <tr th:each="category:${categories}">
-        <td th:text="${category.code}"></td>
-        <td th:text="${category.name}"></td>
+        <td th:text="${category.id}"></td>
+        <td th:text="${category.Name}"></td>
+        <td th:text="${category.Code}"></td>
     </tr>
 </table>
 </body>
