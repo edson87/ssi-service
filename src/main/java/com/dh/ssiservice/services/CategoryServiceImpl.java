@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
@@ -20,9 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getCategory() {
         List<Category> categories = new ArrayList<>();
         //itera el categoryRepository, usa un lambda
-        categoryRepository.findAll().iterator().forEachRemaining(category -> {
-            categories.add(category);
-        });
+        categoryRepository.findAll().iterator().forEachRemaining(categories::add);
         return categories;
     }
 

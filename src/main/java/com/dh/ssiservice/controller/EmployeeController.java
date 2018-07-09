@@ -1,6 +1,7 @@
 package com.dh.ssiservice.controller;
 
 import com.dh.ssiservice.repository.EmployeeRepository;
+import com.dh.ssiservice.services.EmployeeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -13,28 +14,29 @@ import javax.validation.constraints.NotNull;
 @Controller
 @RequestMapping("/employees")
 public class EmployeeController {
-    private EmployeeRepository employeeRepository;
+    //private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     /* @RequestMapping("/employees")
-     public String getEmployees(Model model) {
-         model.addAttribute("employees", employeeRepository.findAll());
-         return "employees";
-     }*/
+         public String getEmployees(Model model) {
+             model.addAttribute("employees", employeeRepository.findAll());
+             return "employees";
+         }*/
     @RequestMapping
-    public String getCategories(@RequestParam(value = "firstName", required = false) String firstName, Model model) {
+    public String getEmployees(@RequestParam(value = "firstName", required = false) String firstName, Model model) {
         model.addAttribute("employees", StringUtils.isEmpty(firstName) ?
-                employeeRepository.findAll() :
-                employeeRepository.findByFirstName(firstName).get());
+                employeeService.getEmployee() :
+                employeeService.findByFirstName(firstName));
         return "employees";
     }
 
     @RequestMapping("/{id}")
-    public String getCategoriesById(@PathVariable("id") @NotNull Long id, Model model) {
-        model.addAttribute("employee", employeeRepository.findById(id).get());
+    public String getEmployeesById(@PathVariable("id") @NotNull Long id, Model model) {
+        model.addAttribute("employee", employeeService.findById(id).get());
         return "employee";
     }
 
