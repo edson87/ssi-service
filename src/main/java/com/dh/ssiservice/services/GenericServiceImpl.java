@@ -14,7 +14,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
     @Override
     public List<T> findAll() {
         List<T> results = new ArrayList<>();
-        getRepository().findAll().iterator().forEachRemaining(results::add);
+        getRepository().findAll().forEach(results::add);
         return results;
     }
 

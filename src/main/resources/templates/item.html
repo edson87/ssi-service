@@ -5,7 +5,7 @@
     <title>Item List</title>
 </head>
 <body>
-<h1>Items</h1>
+<h1 th:text="'Item '+${item.name}">Item Name</h1>
 <table>
     <tr>
         <th>Id</th>
@@ -20,5 +20,9 @@
         <td th:text="${item.name}"></td>
     </tr>
 </table>
+<div>
+    <label>Imagen</label>
+    <a href="#" th:href="@{'/items/'+${item.id}+'/image'}" />Image</a>
+</div>
 </body>
 </html>
