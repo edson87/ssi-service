@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Incident</title>
+</head>
+<body>
+<h1>Incident List</h1>
+<div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Reason</th>
+
+        </tr>
+        <!--/*@thymesVar id="item" type="com.dh.spring5webapp.model.Item"*/-->
+        <tr>
+            <td th:text="${incident.id}">123</td>
+            <td th:text="${incident.date}">ItemCode</td>
+            <td th:text="${incident.name}">ItemName</td>
+            <td th:text="${incident.reason}">Jhon</td>
+
+        </tr>
+    </table>
+</div>
+</body>
+</html>

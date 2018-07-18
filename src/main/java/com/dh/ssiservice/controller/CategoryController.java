@@ -23,14 +23,14 @@ public class CategoryController {
     @RequestMapping
     public String getCategories(@RequestParam(value = "code", required = false) String code, Model model) {
         model.addAttribute("categories", StringUtils.isEmpty(code) ?
-                categoryService.getCategory() :
+                categoryService.findAll():
                 categoryService.findByCode(code));
         return "categories";
     }
 
     @RequestMapping("/{id}")
     public String getCategoriesById(@PathVariable("id") @NotNull Long id, Model model) {
-        model.addAttribute("category", categoryService.findById(id).get());
+        model.addAttribute("category", categoryService.findById(id));
         return "category";
     }
 }

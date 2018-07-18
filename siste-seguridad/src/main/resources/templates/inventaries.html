@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Code</th>
+            <th>Estado</th>
+            <th>Nombre</th>
+            <th>Quantity</th>
+        </tr>
+        <!--/*@thymesVar id="item" type="com.dh.spring5webapp.model.Item"*/-->
+        <tr th:each="inventary:${inventaries}">
+            <td th:text="${inventary.id}">123</td>
+            <td th:text="${inventary.code}">ItemCode</td>
+            <td th:text="${inventary.estado}">ItemName</td>
+            <td th:text="${inventary.nombre}">Jhon</td>
+            <td th:text="${inventary.quantity}">Jhon</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

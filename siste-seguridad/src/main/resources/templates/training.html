@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Trainings</title>
+</head>
+<body>
+<h1>Training's List</h1>
+<div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Area</th>
+            <th>Name</th>
+            <th>Skill</th>
+        </tr>
+        <!--/*@thymesVar id="item" type="com.dh.spring5webapp.model.Item"*/-->
+        <tr>
+            <td th:text="${training.id}"></td>
+            <td th:text="${training.area}"></td>
+            <td th:text="${training.name}"></td>
+            <td th:text="${training.skill}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

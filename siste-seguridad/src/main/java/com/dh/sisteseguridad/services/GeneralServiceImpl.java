@@ -1,42 +1,29 @@
-package com.dh.ssiservice.services;
+package com.dh.sisteseguridad.services;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Service;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public abstract class GenericServiceImpl<T> implements GenericService<T> {
+public abstract class GeneralServiceImpl<T> implements GeneralService<T> {
 
     @Override
     public List<T> findAll() {
         List<T> results = new ArrayList<>();
-        getRepository().findAll().iterator().forEachRemaining(results::add);
+        getRepository().findAll().forEach(results::add);
         return results;
     }
 
-
     @Override
     public T findById(Long id) {
-        Optional<T> optional = getRepository().findById(id);
-        if (!optional.isPresent()) {
+        Optional<T> results = getRepository().findById(id);
+        if (!results.isPresent()){
             throw new RuntimeException(
                     getType() + " NotFound");
         }
-        return optional.get();
-    }
-
-    @Override
-    public T save(T model) {
-        return getRepository().save(model);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        getRepository().deleteById(id);
+        return results.get();
     }
 
     private String getType() {
@@ -46,6 +33,11 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
         return typeName;
     }
 
+    public T save(T model){
+       return getRepository().save(model);
+    }
 
-    protected abstract CrudRepository<T,Long> getRepository();
+
+    protected abstract CrudRepository<T, Long> getRepository();
+
 }

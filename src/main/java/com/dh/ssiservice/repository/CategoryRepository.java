@@ -9,4 +9,7 @@ import java.util.Optional;
 
 public interface CategoryRepository extends CrudRepository<Category, Long> {
     Optional<List<Category>> findByCode(String firstName);
+
+    @Override
+    List<Category> findAll();
 }
