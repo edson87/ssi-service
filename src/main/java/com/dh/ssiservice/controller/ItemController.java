@@ -1,5 +1,6 @@
 package com.dh.ssiservice.controller;
 
+import com.dh.ssiservice.dao.ItemCommand;
 import com.dh.ssiservice.model.Item;
 import com.dh.ssiservice.model.SubCategory;
 import com.dh.ssiservice.services.ItemService;
@@ -12,12 +13,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
-@RequestMapping("/items")
+@Path("/items")
+@Produces("application/json")
+@CrossOrigin
 public class ItemController {
     //private ItemRepository itemRepository;
     private ItemService itemService;
@@ -28,13 +35,8 @@ public class ItemController {
         this.subCategoryService = subCategoryService;
     }
 
-/* @RequestMapping("/items")
-         public String getItems(Model model){
-             model.addAttribute("items",itemRepository.findAll());
-             return "items";
-         }*/
 
-    @RequestMapping
+    /*@RequestMapping
     public String getItems(Model model) {
         model.addAttribute("items", itemService.findAll());
         return "items";
@@ -108,5 +110,63 @@ public class ItemController {
             InputStream is = new ByteArrayInputStream(byteArray);
             IOUtils.copy(is, response.getOutputStream());
         }
+    }*/
+
+    @GET
+    public Response getItems() {
+        List<ItemCommand> items = new ArrayList<>();
+        itemService.findAll().forEach(item -> {
+            ItemCommand itemCommand = new ItemCommand(item);
+            items.add(itemCommand);
+        });
+        Response.ResponseBuilder responseBuilder = Response.ok(items);
+        addCorsHeader(responseBuilder);
+        return responseBuilder.build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response getItemId(@PathParam("id") @NotNull Long id) {
+        Item item = itemService.findById(id);
+        Response.ResponseBuilder responseBuilder = Response.ok(item);
+        addCorsHeader(responseBuilder);
+        return responseBuilder.build();
+    }
+
+    @POST
+    public Response saveItem(ItemCommand item){
+        Item model = item.toDomain();
+        model.setSubCategory(subCategoryService.findById(item.getSubCategoryId()));
+        Item itemPersisted = itemService.save(model);
+        Response.ResponseBuilder responseBuilder = Response.ok(itemPersisted);
+        addCorsHeader(responseBuilder);
+        return responseBuilder.build();
+    }
+
+    @PUT
+    public Response updateItem(Item item){
+        Item itemPersisted = itemService.save(item);
+        Response.ResponseBuilder responseBuilder = Response.ok(itemPersisted);
+        addCorsHeader(responseBuilder);
+        return responseBuilder.build();
+    }
+
+    @DELETE
+    @Path("/delete/{id}")
+    public Response deleteItem(@PathParam("id") String id){
+        itemService.deleteById(Long.valueOf(id));
+        Response.ResponseBuilder responseBuilder = Response.ok();
+        addCorsHeader(responseBuilder);
+        return responseBuilder.build();
+    }
+
+
+
+    private void addCorsHeader(Response.ResponseBuilder responseBuilder) {
+        responseBuilder.header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .header("Access-Control-Allow-Headers",
+                        "Access-Control-Allow-Credentials, Access-Control-Allow-Headers, Origin, Accept, Authorization, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
     }
 }
